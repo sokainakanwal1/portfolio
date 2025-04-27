@@ -40,7 +40,7 @@ const Home: React.FC = () => {
               Sokaina Kanwal Shah
             </h1>
             <p className="text-xl sm:text-2xl mb-8 text-gray-300">
-              Software Engineer | Mern-Stack Developer
+              Software Developer | Mern-Stack Developer
             </p>
             <div className="flex justify-center space-x-4">
               <a
