@@ -105,6 +105,7 @@ const Home: React.FC = () => {
               "JavaScript",
               "TypeScript",
               "React.js",
+"MonoRepo",
               "Next.js",
               "Node.js",
               "MongoDB",
