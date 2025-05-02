@@ -1,10 +1,6 @@
-import React, { useCallback } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Layout from "../components/Layout";
 import Link from "next/link";
-import Particles from "react-tsparticles";
-import { loadFull } from "tsparticles";
-
-import { Engine } from "tsparticles-engine"; // 👈 Import the correct type
 
 const Home: React.FC = () => {
   const featuredProjects = [
@@ -29,6 +25,71 @@ const Home: React.FC = () => {
       link: "/projects/mojo-tip",
     },
   ];
+  const allSkills = [
+    "JavaScript",
+    "TypeScript",
+    "React.js",
+    "MonoRepo",
+    "Next.js",
+    "Node.js",
+    "MongoDB",
+    "Express.js",
+    "RESTful APIs",
+    "Unit Testing",
+    "Dnd-kit",
+    "Shadcn UI",
+    "Tailwind CSS",
+    "Custom Eslint Rules",
+    "Zod",
+    "RTK Query",
+    "Redux Toolkit",
+    "Cron Job",
+    "API Integration",
+    "VS Code",
+    "Cursor",
+    "Git",
+    "GitHub",
+    "CI/CD",
+    "Agile",
+    "Waterfall",
+    "Problem-solving",
+    "Time Management",
+    "Documentation",
+  ];
+
+  const skillsPerPage = 6;
+  const skillPages = [];
+  for (let i = 0; i < allSkills.length; i += skillsPerPage) {
+    skillPages.push(allSkills.slice(i, i + skillsPerPage));
+  }
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [displayedPage, setDisplayedPage] = useState(0);
+  const [direction, setDirection] = useState<"left" | "right">("right");
+
+  const changePage = (newPage: number) => {
+    if (isAnimating || newPage < 0 || newPage >= skillPages.length) return;
+
+    const newDirection = newPage > currentPage ? "right" : "left";
+    setDirection(newDirection);
+    setIsAnimating(true);
+    setCurrentPage(newPage);
+  };
+
+  const nextPage = () => changePage(currentPage + 1);
+  const prevPage = () => changePage(currentPage - 1);
+
+  // Handle animation completion
+  useEffect(() => {
+    if (isAnimating) {
+      const timer = setTimeout(() => {
+        setDisplayedPage(currentPage);
+        setIsAnimating(false);
+      }, 600); // Should match your CSS animation duration
+      return () => clearTimeout(timer);
+    }
+  }, [isAnimating, currentPage]);
 
   return (
     <Layout>
@@ -100,44 +161,123 @@ const Home: React.FC = () => {
           <h2 className="text-3xl font-bold text-[#FF5A8A] mb-12 text-center">
             Skills
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            {[
-              "JavaScript",
-              "TypeScript",
-              "React.js",
-"MonoRepo",
-              "Next.js",
-              "Node.js",
-              "MongoDB",
-              "Express.js",
-              "RESTful APIs",
-              "Unit Testing",
-              "Dnd-kit",
-              "Shadcn UI",
-              "Tailwind CSS",
-              "Custom Eslint Rules",
-              "Zod",
-              "RTK Query",
-              "Redux Toolkit",
-              "Cron Job",
-              "API Integration",
-              "VS Code",
-              "Cursor",
-              "Git",
-              "GitHub",
-              "CI/CD",
-              "Agile",
-              "Waterfall",
-              "Problem-solving",
-              "Time Management",
-              "Documentation",
-            ].map((skill) => (
-              <div
-                key={skill}
-                className="bg-gray-800 p-4 rounded-lg shadow-sm text-center hover:shadow-md hover:shadow-[#FF5A8A]/20 transition-shadow"
+
+          <div className="flex justify-center items-center">
+            {/* Previous Page Button */}
+            <button
+              onClick={prevPage}
+              disabled={currentPage === 0 || isAnimating}
+              className={`mx-4 p-2 rounded-full ${
+                currentPage === 0
+                  ? "text-gray-500 cursor-not-allowed"
+                  : "text-[#FF5A8A] hover:bg-gray-800"
+              }`}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-8 w-8"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
               >
-                <span className="text-gray-200 font-medium">{skill}</span>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+
+            {/* Book Container */}
+            <div className="relative w-64 h-80 perspective-1000">
+              {/* Front Page (always visible) */}
+              <div
+                className={`absolute w-full h-full bg-gray-800 rounded-lg shadow-lg p-6 backface-hidden transition-all duration-600 ${
+                  isAnimating && direction === "right" ? "animate-flip-out" : ""
+                } ${
+                  isAnimating && direction === "left" ? "animate-flip-in" : ""
+                }`}
+              >
+                <div className="grid grid-cols-2 gap-4 h-full">
+                  {skillPages[displayedPage]?.map((skill) => (
+                    <div
+                      key={`front-${skill}`}
+                      className="bg-gray-700 p-3 rounded-md flex items-center justify-center text-center"
+                    >
+                      <span className="text-gray-200 font-medium text-sm">
+                        {skill}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
+
+              {/* Back Page (next/previous page during animation) */}
+              {isAnimating && (
+                <div
+                  className={`absolute w-full h-full bg-gray-800 rounded-lg shadow-lg p-6 backface-hidden transition-all duration-600 ${
+                    direction === "right"
+                      ? "animate-flip-in"
+                      : "animate-flip-out"
+                  }`}
+                >
+                  <div className="grid grid-cols-2 gap-4 h-full">
+                    {skillPages[
+                      direction === "right" ? currentPage : currentPage
+                    ]?.map((skill) => (
+                      <div
+                        key={`back-${skill}`}
+                        className="bg-gray-700 p-3 rounded-md flex items-center justify-center text-center"
+                      >
+                        <span className="text-gray-200 font-medium text-sm">
+                          {skill}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Next Page Button */}
+            <button
+              onClick={nextPage}
+              disabled={currentPage === skillPages.length - 1 || isAnimating}
+              className={`mx-4 p-2 rounded-full ${
+                currentPage === skillPages.length - 1
+                  ? "text-gray-500 cursor-not-allowed"
+                  : "text-[#FF5A8A] hover:bg-gray-800"
+              }`}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-8 w-8"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </button>
+          </div>
+
+          {/* Page Indicators */}
+          <div className="flex justify-center mt-6">
+            {skillPages.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => changePage(index)}
+                disabled={isAnimating}
+                className={`w-3 h-3 mx-1 rounded-full ${
+                  index === currentPage ? "bg-[#FF5A8A]" : "bg-gray-600"
+                }`}
+              />
             ))}
           </div>
         </div>

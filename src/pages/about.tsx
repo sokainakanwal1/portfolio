@@ -44,7 +44,7 @@ const About: React.FC = () => {
             <p className="text-gray-500 mb-6">10/2020 – 07/2024</p>
             <ul className="list-disc list-inside text-gray-400 space-y-2">
               <li>
-                Graduated with a 3.93 GPA, awarded the Gold Medal as top
+                Graduated with a 3.91 GPA, awarded the Gold Medal as top
                 performer.
               </li>
               <li>

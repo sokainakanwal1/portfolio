@@ -28,7 +28,37 @@
     @apply font-bold;
   }
 }
+@keyframes flip {
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(90deg);
+  }
+  100% {
+    transform: rotateY(0deg);
+  }
+}
 
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+.rotate-y-0 {
+  transform: rotateY(0deg);
+}
+
+.animate-flip {
+  animation: flip 1s ease-in-out;
+}
 @layer components {
   .btn-primary {
     @apply bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-secondary transition-colors;
