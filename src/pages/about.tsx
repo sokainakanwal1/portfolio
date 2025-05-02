@@ -105,6 +105,10 @@ const About: React.FC = () => {
                 title: "Freedom With AI Masterclass",
                 issuer: "Freedom With AI",
               },
+              {
+                title: "How to speak when put on the spot.",
+                issuer: "LinkedIn Learning",
+              },
               { title: "Foundations of Project Management", issuer: "Google" },
               { title: "Decision Making", issuer: "LinkedIn Learning" },
             ].map((cert, index) => (
