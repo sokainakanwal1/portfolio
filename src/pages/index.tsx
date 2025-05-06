@@ -38,6 +38,7 @@ const Home: React.FC = () => {
     "Unit Testing",
     "Dnd-kit",
     "Jodit Editor",
+    "Tailwind CSS",
     "Shadcn UI",
     "Tailwind CSS",
     "Custom Eslint Rules",
