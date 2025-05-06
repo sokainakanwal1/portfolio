@@ -8,7 +8,7 @@ const Home: React.FC = () => {
       title: "SPIN – League Portal",
       description:
         "Custom form builder platform for league registrations and player management",
-      technologies: ["Next.js", "TypeScript", "dnd-kit"],
+      technologies: ["Next.js", "TypeScript", "dnd-kit", " Jodit"],
       link: "/projects/spin-league-portal",
     },
     {
