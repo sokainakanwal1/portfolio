@@ -37,6 +37,7 @@ const Home: React.FC = () => {
     "RESTful APIs",
     "Unit Testing",
     "Dnd-kit",
+    "Jodit",
     "Shadcn UI",
     "Tailwind CSS",
     "Custom Eslint Rules",

@@ -13,6 +13,9 @@ const Projects: React.FC = () => {
       achievements: [
         "Created a form builder portal for league registrations using Next.js, dnd-kit (for drag-and-drop functionality), and TypeScript.",
         "Developed features like default form templates, form previews, form sharing with expiry dates, and submission handling.",
+        "Used Jodit for rich text editing and integrated it into the form builder.",
+        "Implemented a drag-and-drop interface for easy form creation and customization.",
+        "Enabled users to create and manage multiple forms with different templates.",
         "Integrated user profile population from existing app accounts into forms, automating league registration after successful payments.",
         "Built admin functionalities for league admins to manage submitted forms, track payment status, and monitor user creation.",
       ],
