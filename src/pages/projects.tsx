@@ -9,7 +9,7 @@ const Projects: React.FC = () => {
       description:
         "Custom form builder platform for league registrations and player management",
       period: "02/2025 – present",
-      technologies: ["Next.js", "TypeScript", "dnd-kit"],
+      technologies: ["Next.js", "TypeScript", "dnd-kit", "Jodit Editor"],
       achievements: [
         "Created a form builder portal for league registrations using Next.js, dnd-kit (for drag-and-drop functionality), and TypeScript.",
         "Developed features like default form templates, form previews, form sharing with expiry dates, and submission handling.",
